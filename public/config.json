@@ -1,19 +1,24 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "https://custom-activity-sfmc-beryl.vercel.app/icon.png",
+    "icon": "icon.png",
     "category": "message"
   },
   "type": "REST",
   "lang": {
     "en-US": {
       "name": "Email Filter Activity",
-      "description": "Filtra i contatti con email specifica"
+      "description": "Filtra in base all'email"
     }
   },
   "arguments": {
     "execute": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute"
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
+      "verb": "POST",
+      "body": "",
+      "headers": {
+        "Content-Type": "application/json"
+      }
     }
   },
   "configurationArguments": {
@@ -28,5 +33,16 @@
     }
   },
   "userInterfaces": {
-    "configModal": "https://custom-activity-sfmc-beryl.vercel.app/index.html"
+    "configModal": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/index.html"
+    }
+  },
+  "schema": {
+    "arguments": {
+      "execute": {
+        "inArguments": [],
+        "outArguments": []
+      }
+    }
   }
+}
