@@ -8,6 +8,6 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "postmonger": "^2.0.0"
+    "postmonger": "^0.0.16"
   }
 }
