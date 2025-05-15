@@ -2,7 +2,7 @@
   "workflowApiVersion": "1.1",
   "metaData": {
     "icon":  "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
-    "category": "message"
+    "category": "custom"
   },
   "type": "REST",
   "lang": {
