@@ -1,0 +1,57 @@
+{
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "https://ERCEL_DOMAIN.com/icon.png",
+    "category": "message"
+  },
+  "type": "REST",
+  "lang": {
+    "en-US": {
+      "name": "Email Filter",
+      "description": "Blocca alcune email dal continuare nel journey"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [
+        { "Email": "" }
+      ],
+      "outArguments": [
+        { "branchResult": "" }
+      ],
+      "url": "https://VERCEL_DOMAIN.com/activities/emailFilter/execute",
+      "verb": "POST",
+      "body": "",
+      "header": "",
+      "format": "json",
+      "useJwt": false,
+      "timeout": 10000
+    }
+  },
+  "configurationArguments": {
+    "applicationExtensionKey": "custom-activity-email-filter"
+  },
+  "wizardSteps": [],
+  "userInterfaces": {
+    "configModal": {
+      "height": 300,
+      "width": 400,
+      "fullscreen": false
+    }
+  },
+  "schema": {
+    "arguments": {
+      "execute": {
+        "inArguments": [],
+        "outArguments": [],
+        "url": "",
+        "timeout": 10000,
+        "verb": "POST",
+        "body": "",
+        "header": "",
+        "format": "json",
+        "useJwt": false
+      }
+    }
+  }
+}
