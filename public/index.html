@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Email Filter Activity</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
+  <script>
+    require.config({
+      paths: {
+        postmonger: 'https://cdnjs.cloudflare.com/ajax/libs/postmonger/1.0.2/postmonger'
+      }
+    });
+
+    require(['postmonger'], function (Postmonger) {
+      var connection = new Postmonger.Session();
+
+      connection.on('initActivity', function (payload) {
+        console.log('Activity initialized:', payload);
+        
+      });
+
+      connection.on('requestedTokens', function (tokens) {
+        console.log('Tokens:', tokens);
+      });
+
+      connection.on('requestedEndpoints', function (endpoints) {
+        console.log('Endpoints:', endpoints);
+      });
+
+      connection.trigger('ready'); // Notifica che l’interfaccia è pronta
+      connection.trigger('requestTokens');
+      connection.trigger('requestEndpoints');
+
+      // Invio configurazione al salvataggio
+      document.getElementById("saveBtn").addEventListener("click", function () {
+        var payload = {
+          isConfigured: true
+        };
+        connection.trigger('updateActivity', payload);
+      });
+    });
+  </script>
+</head>
+<body>
+  <h1>Email Filter Activity</h1>
+  <p>Questa Custom Activity controllerà l’indirizzo email.</p>
+  <button id="saveBtn">Salva configurazione</button>
+</body>
+</html>
