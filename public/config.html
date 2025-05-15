@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Configura Email Block Checker</title>
+  <script src="https://cdn.jsdelivr.net/npm/postmonger@0.0.16/postmonger.min.js"></script>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    label, input, button { display:block; margin:8px 0; }
+    input { width:100%; padding:6px; }
+  </style>
+</head>
+<body>
+  <h2>Configura Email Block Checker</h2>
+  <form id="form">
+    <label>Campo Email in DE di ingresso</label>
+    <input type="text" id="emailField" placeholder="es. EmailAddress" required>
+    <button type="submit">Salva</button>
+  </form>
+  <script src="/email-block-checker/index.js"></script>
+</body>
+</html>
