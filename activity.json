@@ -1,45 +1,47 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
+    "icon":  "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
     "category": "message"
   },
   "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Email Block Checker",
+      "name":        "Email Block Checker",
       "description": "Blocca o fa proseguire il contatto in base all’email"
     }
   },
   "arguments": {
     "execute": {
-      "inArguments": [
-        {
-          "EmailAddress": ""
-        },
-        {
-          "Id": ""
-        }
-      ],
+      "inArguments":  [ { "EmailAddress": "" }, { "Id": "" } ],
       "outArguments": [],
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
-      "verb": "POST",
-      "timeout": 10000
+      "url":          "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
+      "verb":         "POST",
+      "timeout":      10000
     },
     "save": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/save",
-      "verb": "POST",
+      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/save",
+      "verb":    "POST",
       "timeout": 10000
     },
     "validate": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
-      "verb": "POST",
+      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
+      "verb":    "POST",
+      "timeout": 10000
+    },
+    "publish": {
+      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/publish",
+      "verb":    "POST",
       "timeout": 10000
     }
   },
   "configurationArguments": {
-    "publish": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish"
+  },
+  "userInterfaces": {
+    "configModal": {
+      "url":        "https://custom-activity-sfmc-beryl.vercel.app/config.html",
+      "height":     600,
+      "fullscreen": false
     }
   }
 }
