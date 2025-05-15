@@ -1,0 +1,66 @@
+{
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "https://custom-activity-sfmc-beryl.vercel.app/icon.png",
+    "category": "message"
+  },
+  "type": "RESTDECISION",
+  "lang": {
+    "en-US": {
+      "name": "Email Filter",
+      "description": "Blocca contatti con email specifiche"
+    }
+  },
+  "arguments": {
+    "execute": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
+      "verb": "POST",
+      "body": "",
+      "header": "",
+      "format": "json",
+      "useJwt": false
+    },
+    "publish": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish",
+      "verb": "POST",
+      "body": "",
+      "header": "",
+      "format": "json",
+      "useJwt": false
+    },
+    "validate": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
+      "verb": "POST",
+      "body": "",
+      "header": "",
+      "format": "json",
+      "useJwt": false
+    },
+    "stop": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/stop",
+      "verb": "POST",
+      "body": "",
+      "header": "",
+      "format": "json",
+      "useJwt": false
+    }
+  },
+  "configurationArguments": {
+    "applicationExtensionKey": "emailFilterExtension"
+  },
+  "wizardSteps": [
+    {
+      "label": "Email Filter Config",
+      "key": "step1"
+    }
+  ],
+  "edit": {
+    "url": "https://custom-activity-sfmc-beryl.vercel.app/",
+    "height": 300,
+    "width": 500
+  },
+  "execute": {
+    "retryCount": 3,
+    "timeout": 10000
+  }
+}
