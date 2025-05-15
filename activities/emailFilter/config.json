@@ -1,56 +1,54 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "https://ERCEL_DOMAIN.com/icon.png",
-    "category": "message"
+    "icon": "https://YOUR_ICON_URL_HERE.png",
+    "category": "custom"
   },
   "type": "REST",
   "lang": {
     "en-US": {
       "name": "Email Filter",
-      "description": "Blocca alcune email dal continuare nel journey"
+      "description": "Blocca alcune email e fa proseguire le altre"
     }
   },
   "arguments": {
     "execute": {
-      "inArguments": [
-        { "Email": "" }
-      ],
-      "outArguments": [
-        { "branchResult": "" }
-      ],
-      "url": "https://VERCEL_DOMAIN.com/activities/emailFilter/execute",
-      "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false,
-      "timeout": 10000
+      "inArguments": [],
+      "outArguments": [],
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/execute",
+      "timeout": 10000,
+      "retryCount": 3,
+      "retryDelay": 1000,
+      "useJwt": false
     }
   },
   "configurationArguments": {
-    "applicationExtensionKey": "custom-activity-email-filter"
+    "publish": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/publish"
+    },
+    "validate": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/validate"
+    },
+    "stop": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/stop"
+    }
   },
-  "wizardSteps": [],
   "userInterfaces": {
     "configModal": {
       "height": 300,
-      "width": 400,
-      "fullscreen": false
+      "width": 500,
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/ui"
     }
   },
   "schema": {
     "arguments": {
       "execute": {
         "inArguments": [],
-        "outArguments": [],
-        "url": "",
-        "timeout": 10000,
-        "verb": "POST",
-        "body": "",
-        "header": "",
-        "format": "json",
-        "useJwt": false
+        "outArguments": [
+          {
+            "emailPassed": false
+          }
+        ]
       }
     }
   }
