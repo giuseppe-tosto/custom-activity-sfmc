@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Email Filter Activity</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 </head>
 <body>
-  <h1>Email Filter Activity UI</h1>
-  <p>Inizializzazione Custom Activity...</p>
-
+  <h1>Inizializzazione Email Filter Activity...</h1>
   <script>
     require.config({
       paths: {
@@ -20,16 +18,16 @@
       const connection = new Postmonger.Session();
 
       connection.on('initActivity', function (payload) {
-        console.log('Payload ricevuto da SFMC:', payload);
+        console.log('▶️ Attività inizializzata con payload:', payload);
       });
 
       connection.on('requestedTokens', function (tokens) {
-        console.log('Token ricevuti:', tokens);
+        console.log('🔐 Token ricevuti:', tokens);
       });
 
-      connection.trigger('ready'); // segnala a SFMC che la UI è pronta
-      connection.trigger('requestTokens');
-      connection.trigger('requestEndpoints');
+      connection.trigger('ready');             // Notifica a SFMC che è pronta
+      connection.trigger('requestTokens');     // Richiede i token
+      connection.trigger('requestEndpoints');  // Richiede gli endpoint
     });
   </script>
 </body>
