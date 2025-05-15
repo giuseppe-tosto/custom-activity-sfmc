@@ -4,63 +4,29 @@
     "icon": "https://custom-activity-sfmc-beryl.vercel.app/icon.png",
     "category": "message"
   },
-  "type": "RESTDECISION",
+  "type": "REST",
   "lang": {
     "en-US": {
-      "name": "Email Filter",
-      "description": "Blocca contatti con email specifiche"
+      "name": "Email Filter Activity",
+      "description": "Filtra i contatti con email specifica"
     }
   },
   "arguments": {
     "execute": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
-      "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false
-    },
-    "publish": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish",
-      "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false
-    },
-    "validate": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
-      "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false
-    },
-    "stop": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/stop",
-      "verb": "POST",
-      "body": "",
-      "header": "",
-      "format": "json",
-      "useJwt": false
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute"
     }
   },
   "configurationArguments": {
-    "applicationExtensionKey": "emailFilterExtension"
-  },
-  "wizardSteps": [
-    {
-      "label": "Email Filter Config",
-      "key": "step1"
+    "publish": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish"
+    },
+    "validate": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate"
+    },
+    "stop": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/stop"
     }
-  ],
-  "edit": {
-    "url": "https://custom-activity-sfmc-beryl.vercel.app/index.html",
-    "height": 300,
-    "width": 500
   },
-  "execute": {
-    "retryCount": 3,
-    "timeout": 10000
+  "userInterfaces": {
+    "configModal": "https://custom-activity-sfmc-beryl.vercel.app/index.html"
   }
-}
