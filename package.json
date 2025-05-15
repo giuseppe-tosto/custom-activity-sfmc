@@ -1,13 +1,18 @@
 {
-  "name": "custom-activity-sfmc",
+  "name": "email-block-checker",
   "version": "1.0.0",
-  "description": "Custom REST Activity per Journey Builder: Email Block Checker",
-  "main": "index.js",
+  "description": "Custom Activity per Journey Builder: Email Block Checker",
   "scripts": {
+    "build": "webpack --config webpack.config.js",
     "start": "vercel dev",
     "deploy": "vercel --prod"
   },
   "dependencies": {
     "postmonger": "^0.0.16"
+  },
+  "devDependencies": {
+    "webpack": "^5.88.2",
+    "webpack-cli": "^4.11.0",
+    "copy-webpack-plugin": "^11.0.0"
   }
 }
