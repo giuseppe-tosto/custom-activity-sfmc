@@ -16,21 +16,13 @@
       "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
       "verb": "POST",
       "body": "",
-      "headers": {
-        "Content-Type": "application/json"
-      }
+      "headers": { "Content-Type": "application/json" }
     }
   },
   "configurationArguments": {
-    "publish": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish"
-    },
-    "validate": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate"
-    },
-    "stop": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/stop"
-    }
+    "publish": { "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish" },
+    "validate": { "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate" },
+    "stop": { "url": "https://custom-activity-sfmc-beryl.vercel.app/api/stop" }
   },
   "userInterfaces": {
     "configModal": {
