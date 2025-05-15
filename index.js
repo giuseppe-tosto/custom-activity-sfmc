@@ -1,13 +1,12 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const app = express();
-app.use(bodyParser.json());
-
-// Importa la tua custom activity
-const emailFilter = require('./activities/emailFilter/execute');
-
-app.post('/activities/emailFilter/execute', emailFilter);
-
-// Per Vercel
-module.exports = app;
+export default function handler(req, res) {
+  res.status(200).json({
+    message: "✅ Custom Activity SFMC pronta!",
+    endpoints: {
+      config: "/config.json",
+      publish: "/api/publish",
+      execute: "/api/execute",
+      validate: "/api/validate",
+      stop: "/api/stop"
+    }
+  });
+}
