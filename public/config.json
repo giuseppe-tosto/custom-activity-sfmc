@@ -36,11 +36,17 @@
       "url":     "https://custom-activity-sfmc-delta.vercel.app/api/save",
       "verb":    "POST",
       "timeout": 10000
+    },
+    "validate": {
+      "url":     "https://custom-activity-sfmc-delta.vercel.app/api/validate",
+      "verb":    "POST",
+      "timeout": 10000
+    },
+    "publish": {
+      "url":     "https://custom-activity-sfmc-delta.vercel.app/api/publish",
+      "verb":    "POST",
+      "timeout": 10000
     }
-  },
-  "configurationArguments": {
-    "validate": { "url": "https://custom-activity-sfmc-delta.vercel.app/api/validate" },
-    "publish":  { "url": "https://custom-activity-sfmc-delta.vercel.app/api/publish" }
   },
   "userInterfaces": {
     "configModal": {
@@ -50,4 +56,3 @@
     }
   }
 }
-
