@@ -8,8 +8,7 @@
     body { font-family: Arial, sans-serif; padding: 20px; }
     fieldset { margin-bottom: 15px; }
     label { display: block; margin: 5px 0; }
-    input[type="text"] { width: 100%; padding: 6px; box-sizing: border-box; }
-    button { margin-top: 10px; padding: 8px 16px; }
+    button { padding: 8px 16px; }
   </style>
 </head>
 <body>
@@ -21,16 +20,6 @@
     <label><input type="radio" name="filterType" value="domain"> Dominio</label>
     <label><input type="radio" name="filterType" value="both"> Entrambi</label>
   </fieldset>
-
-  <div id="single-group">
-    <label for="singleEmails">Email (separate da virgola)</label>
-    <input type="text" id="singleEmails" placeholder="es. giuseppe.tosto@skylabs.it,altro@esempio.com" />
-  </div>
-
-  <div id="domain-group" style="display:none">
-    <label for="domainList">Domini (senza @, separate da virgola)</label>
-    <input type="text" id="domainList" placeholder="es. yahoo.it,example.org" />
-  </div>
 
   <button id="saveBtn">Salva</button>
 
