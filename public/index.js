@@ -47,5 +47,5 @@
 
     connection.trigger('updateActivity', payload);
   });
-
+   connection.trigger('ready');
 })();
