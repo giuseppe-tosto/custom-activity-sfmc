@@ -1,10 +1,16 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon": "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
+    "icon":     "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
     "category": "custom"
   },
-  "type": "RestDecision",
+  "type": "RESTDECISION",
+  "lang": {
+    "en-US": {
+      "name":        "Email Block Checker",
+      "description": "Blocca o fa proseguire in base a singole email o dominio"
+    }
+  },
   "outcomes": [
     {
       "arguments": {
@@ -23,12 +29,6 @@
       }
     }
   ],
-  "lang": {
-    "en-US": {
-      "name": "Email Block Checker",
-      "description": "Blocca o fa proseguire in base a singole email o dominio"
-    }
-  },
   "arguments": {
     "execute": {
       "inArguments": [
@@ -36,31 +36,28 @@
         { "SingleEmails": "" },
         { "DomainList": "" }
       ],
-      "outArguments": [],
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
-      "verb": "POST",
+      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
+      "verb":    "POST",
       "timeout": 10000
     },
     "save": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/save",
-      "verb": "POST",
+      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/save",
+      "verb":    "POST",
       "timeout": 10000
+    }
+  },
+  "configurationArguments": {
+    "publish": {
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish"
     },
     "validate": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
-      "verb": "POST",
-      "timeout": 10000
-    },
-    "publish": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish",
-      "verb": "POST",
-      "timeout": 10000
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate"
     }
   },
   "userInterfaces": {
     "configModal": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/config.html",
-      "height": 600,
+      "url":        "https://custom-activity-sfmc-beryl.vercel.app/config.html",
+      "height":     600,
       "fullscreen": false
     }
   }
