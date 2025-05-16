@@ -6,16 +6,14 @@
   var HARD_SINGLE = 'giuseppe.tosto@skylabs.it';
   var HARD_DOMAIN = 'yahoo.it';
   
+  // initActivity: prepopola le radio e abilita Done
   connection.on('initActivity', function(data) {
-    var single   = false;
-    var domain   = false;
-    var inArgs = (data.arguments && data.arguments.execute && data.arguments.execute.inArguments) 
-                 ? Object.assign({}, ...data.arguments.execute.inArguments) 
+    var inArgs = (data.arguments && data.arguments.execute && data.arguments.execute.inArguments)
+                 ? Object.assign({}, ...data.arguments.execute.inArguments)
                  : {};
 
-    if (inArgs.SingleEmails) single = true;
-    if (inArgs.DomainList)   domain = true;
-
+    var single = Boolean(inArgs.SingleEmails);
+    var domain = Boolean(inArgs.DomainList);
     var type = single && domain ? 'both'
              : domain         ? 'domain'
              :                  'single';
@@ -27,11 +25,11 @@
       }
     );
 
-    // dico subito a Journey Builder che la UI è pronta
+    // Segnalo a JB che la UI è pronta e abilita “Done”
     connection.trigger('ready');
   });
 
-  // quando l'utente clicca Next/Done in JB
+  // Quando l’utente clicca Done/Next in Journey Builder
   connection.on('clickedNext', function() {
     var selected = document.querySelector('input[name=filterType]:checked').value;
 
@@ -49,12 +47,5 @@
 
     connection.trigger('updateActivity', payload);
   });
-
-  // pulsante Salva, fa scattare clickedNext
-  document.getElementById('saveBtn')
-    .addEventListener('click', function(){
-      connection.trigger('clickedNext');
-    });
- connection.trigger('ready');
 
 })();
