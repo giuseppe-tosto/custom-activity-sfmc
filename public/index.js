@@ -2,79 +2,59 @@
   'use strict';
 
   var connection = new Postmonger.Session();
-  var inArgsValues = { SingleEmails: '', DomainList: '' };
-
+  // hard-coded per semplicità
+  var HARD_SINGLE = 'giuseppe.tosto@skylabs.it';
+  var HARD_DOMAIN = 'yahoo.it';
+  
   connection.on('initActivity', function(data) {
-    if (
-      data.arguments &&
-      data.arguments.execute &&
-      data.arguments.execute.inArguments
-    ) {
-      var incoming = data.arguments.execute.inArguments.reduce(function(acc, cur){
-        return Object.assign(acc, cur);
-      }, {});
-      inArgsValues.SingleEmails = incoming.SingleEmails || '';
-      inArgsValues.DomainList   = incoming.DomainList   || '';
-    }
+    var single   = false;
+    var domain   = false;
+    var inArgs = (data.arguments && data.arguments.execute && data.arguments.execute.inArguments) 
+                 ? Object.assign({}, ...data.arguments.execute.inArguments) 
+                 : {};
 
-    // Setto la UI in base ai valori salvati
-    var btns = document.getElementsByName('filterType');
-    var type = (inArgsValues.DomainList && inArgsValues.SingleEmails)
-             ? 'both'
-             : (inArgsValues.DomainList ? 'domain' : 'single');
-    Array.prototype.forEach.call(btns, function(radio){
-      radio.checked = (radio.value === type);
-    });
-    document.getElementById('singleEmails').value = inArgsValues.SingleEmails;
-    document.getElementById('domainList').value   = inArgsValues.DomainList;
+    if (inArgs.SingleEmails) single = true;
+    if (inArgs.DomainList)   domain = true;
 
-    // Mostro/nascondo i gruppi
-    toggleGroups(type);
+    var type = single && domain ? 'both'
+             : domain         ? 'domain'
+             :                  'single';
 
-    // Segnalo a JB che sono pronto
+    Array.prototype.forEach.call(
+      document.getElementsByName('filterType'),
+      function(radio){
+        radio.checked = radio.value === type;
+      }
+    );
+
+    // dico subito a Journey Builder che la UI è pronta
     connection.trigger('ready');
   });
 
-  // Permette di mostrare/nascondere i campi quando l’utente cambia radio
-  Array.prototype.forEach.call(
-    document.getElementsByName('filterType'),
-    function(radio){
-      radio.addEventListener('change', function(){
-        toggleGroups(this.value);
-      });
-    }
-  );
-
-  function toggleGroups(type){
-    document.getElementById('single-group').style.display =
-      (type === 'single' || type === 'both') ? 'block' : 'none';
-    document.getElementById('domain-group').style.display =
-      (type === 'domain' || type === 'both') ? 'block' : 'none';
-  }
-
-  // Quando JB invia clickedNext (bottone Done/Next)
-  connection.on('clickedNext', function(){
+  // quando l'utente clicca Next/Done in JB
+  connection.on('clickedNext', function() {
     var selected = document.querySelector('input[name=filterType]:checked').value;
-    var singles = document.getElementById('singleEmails').value.trim();
-    var domains = document.getElementById('domainList').value.trim();
 
     var payload = {
       arguments: {
         execute: {
           inArguments: [
-            { SingleEmails: selected === 'domain' ? '' : singles },
-            { DomainList:   selected === 'single' ? '' : domains }
+            { SingleEmails: selected === 'domain' ? '' : HARD_SINGLE },
+            { DomainList:   selected === 'single' ? '' : HARD_DOMAIN }
           ]
         }
       },
       metaData: { isConfigured: true }
     };
+
     connection.trigger('updateActivity', payload);
   });
 
-  // Submit manuale del bottone “Salva”
-  document.getElementById('saveBtn').addEventListener('click', function(){
-    connection.trigger('clickedNext');
-  });
+  // pulsante Salva, fa scattare clickedNext
+  document.getElementById('saveBtn')
+    .addEventListener('click', function(){
+      connection.trigger('clickedNext');
+    });
+ connection.trigger('ready');
 
 })();
