@@ -1,53 +1,80 @@
-;(function() {
+;(function(){
   'use strict';
 
   var connection = new Postmonger.Session();
-  var emailField = '';
+  var inArgsValues = { SingleEmails: '', DomainList: '' };
 
-  // 1) Quando ci infila i dati (o al primo load)
   connection.on('initActivity', function(data) {
     if (
       data.arguments &&
       data.arguments.execute &&
       data.arguments.execute.inArguments
     ) {
-      var args = data.arguments.execute.inArguments[0];
-      emailField = args.EmailAddress || '';
-      document.getElementById('emailField').value = emailField;
+      var incoming = data.arguments.execute.inArguments.reduce(function(acc, cur){
+        return Object.assign(acc, cur);
+      }, {});
+      inArgsValues.SingleEmails = incoming.SingleEmails || '';
+      inArgsValues.DomainList   = incoming.DomainList   || '';
     }
-    // Segnalo a Journey Builder che la UI è pronta
+
+    // Setto la UI in base ai valori salvati
+    var btns = document.getElementsByName('filterType');
+    var type = (inArgsValues.DomainList && inArgsValues.SingleEmails)
+             ? 'both'
+             : (inArgsValues.DomainList ? 'domain' : 'single');
+    Array.prototype.forEach.call(btns, function(radio){
+      radio.checked = (radio.value === type);
+    });
+    document.getElementById('singleEmails').value = inArgsValues.SingleEmails;
+    document.getElementById('domainList').value   = inArgsValues.DomainList;
+
+    // Mostro/nascondo i gruppi
+    toggleGroups(type);
+
+    // Segnalo a JB che sono pronto
     connection.trigger('ready');
   });
 
-  // 2) Se Journey Builder mi chiede i token o gli endpoints
-  connection.on('requestedTokens', function() {});
-  connection.on('requestedEndpoints', function() {});
+  // Permette di mostrare/nascondere i campi quando l’utente cambia radio
+  Array.prototype.forEach.call(
+    document.getElementsByName('filterType'),
+    function(radio){
+      radio.addEventListener('change', function(){
+        toggleGroups(this.value);
+      });
+    }
+  );
 
-  // 3) Quando l’utente clicca “Next” / “Done” in JB
-  connection.on('clickedNext', function() {
-    var field = document.getElementById('emailField').value;
+  function toggleGroups(type){
+    document.getElementById('single-group').style.display =
+      (type === 'single' || type === 'both') ? 'block' : 'none';
+    document.getElementById('domain-group').style.display =
+      (type === 'domain' || type === 'both') ? 'block' : 'none';
+  }
+
+  // Quando JB invia clickedNext (bottone Done/Next)
+  connection.on('clickedNext', function(){
+    var selected = document.querySelector('input[name=filterType]:checked').value;
+    var singles = document.getElementById('singleEmails').value.trim();
+    var domains = document.getElementById('domainList').value.trim();
+
     var payload = {
       arguments: {
         execute: {
-          inArguments: [{ EmailAddress: field }]
+          inArguments: [
+            { SingleEmails: selected === 'domain' ? '' : singles },
+            { DomainList:   selected === 'single' ? '' : domains }
+          ]
         }
       },
-      metaData: {
-        isConfigured: true
-      }
+      metaData: { isConfigured: true }
     };
-    // Invio i dati a JB
     connection.trigger('updateActivity', payload);
   });
 
-  // 4) appena carico la pagina, dico subito che sono pronto
-  //    così il pulsante Next appare e non rimane lo spinner
-  connection.trigger('ready');
-
-  // 5) opzionale: se gestisci anche il form submit
-  document.getElementById('form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // faccio partire lo stesso flusso di clickedNext
+  // Submit manuale del bottone “Salva”
+  document.getElementById('saveBtn').addEventListener('click', function(){
     connection.trigger('clickedNext');
   });
+
 })();
