@@ -1,12 +1,10 @@
 {
   "workflowApiVersion": "1.1",
   "metaData": {
-    "icon":     "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
+    "icon": "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
     "category": "custom"
   },
-  //  RestDecision per split con più esiti
   "type": "RestDecision",
-  // due branch disponibili
   "outcomes": [
     {
       "arguments": {
@@ -27,41 +25,42 @@
   ],
   "lang": {
     "en-US": {
-      "name":        "Email Block Checker",
+      "name": "Email Block Checker",
       "description": "Blocca o fa proseguire in base a singole email o dominio"
     }
   },
   "arguments": {
     "execute": {
       "inArguments": [
+        { "EmailAddress": "" },
         { "SingleEmails": "" },
         { "DomainList": "" }
       ],
       "outArguments": [],
-      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
-      "verb":    "POST",
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/execute",
+      "verb": "POST",
       "timeout": 10000
     },
     "save": {
-      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/save",
-      "verb":    "POST",
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/save",
+      "verb": "POST",
       "timeout": 10000
     },
     "validate": {
-      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
-      "verb":    "POST",
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate",
+      "verb": "POST",
       "timeout": 10000
     },
     "publish": {
-      "url":     "https://custom-activity-sfmc-beryl.vercel.app/api/publish",
-      "verb":    "POST",
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish",
+      "verb": "POST",
       "timeout": 10000
     }
   },
   "userInterfaces": {
     "configModal": {
-      "url":        "https://custom-activity-sfmc-beryl.vercel.app/config.html",
-      "height":     600,
+      "url": "https://custom-activity-sfmc-beryl.vercel.app/config.html",
+      "height": 600,
       "fullscreen": false
     }
   }
