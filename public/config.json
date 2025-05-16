@@ -11,10 +11,6 @@
       "description": "Blocca o fa proseguire in base a singole email o dominio"
     }
   },
-  "outcomes": [
-    { "arguments": { "branchResult": "allowed" }, "metaData": { "label": "Allowed" } },
-    { "arguments": { "branchResult": "blocked" }, "metaData": { "label": "Blocked" } }
-  ],
   "arguments": {
     "execute": {
       "inArguments": [
@@ -22,10 +18,13 @@
         { "SingleEmails": "" },
         { "DomainList": "" }
       ],
+      "outArguments": [],
       "url":     "https://custom-activity-sfmc-delta.vercel.app/api/execute",
       "verb":    "POST",
       "timeout": 10000
-    },
+    }
+  },
+  "configurationArguments": {
     "save": {
       "url":     "https://custom-activity-sfmc-delta.vercel.app/api/save",
       "verb":    "POST",
@@ -48,5 +47,9 @@
       "height":     600,
       "fullscreen": false
     }
-  }
+  },
+  "outcomes": [
+    { "arguments": { "branchResult": "allowed" }, "metaData": { "label": "Allowed" } },
+    { "arguments": { "branchResult": "blocked" }, "metaData": { "label": "Blocked" } }
+  ]
 }
