@@ -59,4 +59,7 @@
     connection.trigger('updateActivity', payload);
   });
 
+  // **PRIMO ready** per far partire initActivity
+  connection.trigger('ready');
+
 })();
