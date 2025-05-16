@@ -1,5 +1,5 @@
 module.exports = (req, res) => {
-  // Riceve la configurazione dal config.html
-  console.log('Save payload:', req.body);
-  return res.status(200).json({ success: true });
+ // Viene chiamato quando premi “Done” in JB
+  console.log('--- SAVE CALLED ---', JSON.stringify(req.body));
+  return res.status(200).json({});
 };
