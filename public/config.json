@@ -12,14 +12,8 @@
     }
   },
   "outcomes": [
-    {
-      "arguments":   { "branchResult": "allowed" },
-      "metaData":    { "label": "Allowed" }
-    },
-    {
-      "arguments":   { "branchResult": "blocked" },
-      "metaData":    { "label": "Blocked" }
-    }
+    { "arguments": { "branchResult": "allowed" }, "metaData": { "label": "Allowed" } },
+    { "arguments": { "branchResult": "blocked" }, "metaData": { "label": "Blocked" } }
   ],
   "arguments": {
     "execute": {
