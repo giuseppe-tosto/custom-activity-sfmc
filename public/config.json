@@ -24,7 +24,7 @@
   "arguments": {
     "execute": {
       "inArguments": [
-        { "EmailAddress": "" },
+        { "EmailAddress": "{{Event.MyEntryDE.EmailAddress}}" },
         { "SingleEmails": "" },
         { "DomainList": "" }
       ],
