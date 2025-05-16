@@ -4,7 +4,7 @@
     "icon":     "https://custom-activity-sfmc-beryl.vercel.app/icon.svg",
     "category": "custom"
   },
-  "type": "RESTDECISION",
+  "type": "RestDecision",
   "lang": {
     "en-US": {
       "name":        "Email Block Checker",
@@ -13,20 +13,12 @@
   },
   "outcomes": [
     {
-      "arguments": {
-        "branchResult": "allowed"
-      },
-      "metaData": {
-        "label": "Allowed"
-      }
+      "arguments":   { "branchResult": "allowed" },
+      "metaData":    { "label": "Allowed" }
     },
     {
-      "arguments": {
-        "branchResult": "blocked"
-      },
-      "metaData": {
-        "label": "Blocked"
-      }
+      "arguments":   { "branchResult": "blocked" },
+      "metaData":    { "label": "Blocked" }
     }
   ],
   "arguments": {
@@ -47,12 +39,8 @@
     }
   },
   "configurationArguments": {
-    "publish": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish"
-    },
-    "validate": {
-      "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate"
-    }
+    "validate": { "url": "https://custom-activity-sfmc-beryl.vercel.app/api/validate" },
+    "publish":  { "url": "https://custom-activity-sfmc-beryl.vercel.app/api/publish" }
   },
   "userInterfaces": {
     "configModal": {
