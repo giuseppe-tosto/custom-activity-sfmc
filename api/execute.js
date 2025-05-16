@@ -1,6 +1,10 @@
 module.exports = (req, res) => {
+  // --- LOG INGRESSO ---
+  console.log('--- EXECUTE CALLED ---');
+  console.log('Raw body:', JSON.stringify(req.body));
+
   try {
-    // Ottengo gli inArguments da dove vengono inviati
+    // 1) Recupero gli inArguments in entrambi i formati possibili
     const rawArgs =
       req.body.inArguments ||
       (req.body.arguments &&
@@ -8,45 +12,41 @@ module.exports = (req, res) => {
         req.body.arguments.execute.inArguments) ||
       [];
 
-    // semplifico l’array di oggetti in un unico oggetto
+    // 2) Appiattisco
     const inArgs = Array.isArray(rawArgs)
       ? Object.assign({}, ...rawArgs)
       : rawArgs;
 
+    console.log('Parsed inArguments:', inArgs);
+
+    // 3) Estrazione valori
     const email      = (inArgs.EmailAddress || '').toLowerCase();
     const singleList = (inArgs.SingleEmails || '').toLowerCase();
     const domainList = (inArgs.DomainList   || '').toLowerCase();
 
-    // Hard-coded filter 
+    // 4) Regole di blocco hard-coded
     const BLOCKED_EMAIL  = 'giuseppe.tosto@skylabs.it';
     const BLOCKED_DOMAIN = 'yahoo.it';
 
-    // Verifica su singole email
     let passes = true;
     if (singleList) {
       const singles = singleList.split(',').map(s => s.trim());
-      if (singles.includes(email)) {
-        passes = false;
-      }
+      if (singles.includes(email)) passes = false;
     }
-
-    // Verifica su dominio
     if (passes && domainList) {
       const domains = domainList.split(',').map(d => d.trim());
       const emailDomain = email.split('@')[1] || '';
-      if (domains.includes(emailDomain)) {
-        passes = false;
-      }
+      if (domains.includes(emailDomain)) passes = false;
     }
 
-    // Determino il risultato del branch
     const branchResult = passes ? 'allowed' : 'blocked';
+    console.log('Computed branchResult =', branchResult);
 
-    // Rispondo a Journey Builder
+    // 5) Risposta a Journey Builder
     res.setHeader('Content-Type', 'application/json');
     return res.status(200).json({ branchResult });
   } catch (err) {
-    console.error('Execute error:', err);
+    console.error('EXECUTE ERROR:', err);
     return res.status(500).json({ error: err.message });
   }
 };
