@@ -1,0 +1,183 @@
+<!--
+  File: public/config.html
+  Scopo: Interfaccia di configurazione per la Custom Decision Split
+  - Carica Postmonger e config.js per comunicare con Journey Builder
+  - Permette di scegliere la sorgente blacklist e i controlli (email/domìnio)
+  - Permette di configurare AI Classification (soglia + cache TTL)
+  - Usa Bootstrap 5 per layout, tooltip e styling responsivo
+
+  STEP 1 -- Caricamento dipendenze (Bootstrap CSS, Postmonger, config.js)
+  STEP 2 -- Header con logo e titolo
+  STEP 3 -- Radio button per scegliere la sorgente blacklist
+  STEP 4 -- Toggle switch per i controlli email/domìnio
+  STEP 5 -- Pannello AI (threshold + cacheTTL), visibile solo se AI_CLASSIFY selezionato
+  STEP 6 -- Nota finale per utente e caricamento JS di Bootstrap+Popper
+-->
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Custom Decision Split</title>
+
+  <!-- STEP 1 -- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- STEP 1 -- Postmonger (defer per attendere il parsing) -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/postmonger@0.0.16/postmonger.min.js"
+    defer
+  ></script>
+
+  <!-- STEP 1 -- Script di configurazione -->
+  <script src="config.js" defer></script>
+</head>
+<body class="bg-light">
+  <div class="container py-4">
+
+    <!-- STEP 2 -- Header con icona e titolo -->
+    <h4 class="mb-3">
+      <img src="icon.svg" width="28" alt="Icona Custom Activity" />
+      Custom Decision Split
+    </h4>
+
+    <div class="card">
+      <div class="card-body">
+
+        <!-- STEP 3 -- Sezione 1: SOURCE TYPE -->
+        <h5>1. Sorgente Blacklist</h5>
+        <div class="mb-3">
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sourceType"
+              id="srcDE"
+              value="DE"
+            />
+            <label class="form-check-label" for="srcDE"
+              >Data Extension</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sourceType"
+              id="srcCONST"
+              value="CONST"
+            />
+            <label class="form-check-label" for="srcCONST"
+              >Costanti interne</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sourceType"
+              id="srcEXT"
+              value="EXTERNAL"
+            />
+            <label class="form-check-label" for="srcEXT"
+              >Servizio esterno</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sourceType"
+              id="srcVALIDATE"
+              value="VALIDATE"
+            />
+            <label class="form-check-label" for="srcVALIDATE"
+              >Validazione SFMC</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="sourceType"
+              id="srcAI"
+              value="AI_CLASSIFY"
+            />
+            <label class="form-check-label" for="srcAI"
+              >AI Classification</label
+            >
+          </div>
+        </div>
+
+        <!-- STEP 4 -- Sezione 2: CONTROLLI EMAIL/DOMINIO -->
+        <h5>2. Controlli</h5>
+        <div class="form-check form-switch mb-2">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkEmail"
+          />
+          <label class="form-check-label" for="checkEmail"
+            >Controlla email intera</label
+          >
+        </div>
+        <div class="form-check form-switch mb-3">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkDomain"
+          />
+          <label class="form-check-label" for="checkDomain"
+            >Controlla solo dominio</label
+          >
+        </div>
+
+        <!-- STEP 5 -- Sezione 3: AI OPTIONS -->
+        <div id="aiOptions" class="d-none">
+          <h5>3. AI Classification</h5>
+
+          <!-- STEP 5.1 -- Dropdown soglia di blocco -->
+          <div class="mb-3">
+            <label for="thresholdSelect" class="form-label"
+              >Soglia di blocco</label
+            >
+            <select id="thresholdSelect" class="form-select">
+              <option value="LOW">Basso</option>
+              <option value="MEDIUM">Medio</option>
+              <option value="HIGH">Alto</option>
+            </select>
+          </div>
+
+          <!-- STEP 5.2 -- Dropdown Cache TTL -->
+          <div class="mb-3">
+            <label for="ttlSelect" class="form-label">Cache TTL</label>
+            <select id="ttlSelect" class="form-select">
+              <option value="NONE">Solo lookup DE</option>
+              <option value="24H">Ultime 24 ore</option>
+              <option value="7D">Ultima settimana</option>
+              <option value="1M">Ultimo mese</option>
+              <option value="6M">Ultimi 6 mesi</option>
+              <option value="1Y">Ultimo anno</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- STEP 6 -- Nota finale per utente -->
+        <p class="mt-4 text-muted small">
+          Seleziona le opzioni e clicca <strong>Done</strong> in basso a
+          destra.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -- Popper.js e Bootstrap JS, inizializza tooltip -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

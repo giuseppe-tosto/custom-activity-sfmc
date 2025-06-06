@@ -1,0 +1,88 @@
+{
+  "workflowApiVersion": "1.1",
+  "metaData": {
+    "icon": "https://custom-activity-sfmc-delta.vercel.app/icon.svg",
+    "category": "flow"
+  },
+  "type": "RESTDECISION",
+  "lang": {
+    "it-IT": {
+      "name": "Custom Decision Split",
+      "description": "Verifica se l'email è nella lista di blocco",
+      "i18n_blocked": "Bloccato",
+      "i18n_allowed": "Consentito"
+    }
+  },
+  "outcomeLabelLanguageMap": {
+    "blocked": "i18n_blocked",
+    "allowed": "i18n_allowed"
+  },
+  "outcomes": [
+    {
+      "metaData": { "label": "Bloccato" },
+      "arguments": { "branchResult": "blocked" }
+    },
+    {
+      "metaData": { "label": "Consentito" },
+      "arguments": { "branchResult": "allowed" }
+    }
+  ],
+  "userInterfaces": {
+    "configModal": {
+      "url": "https://custom-activity-sfmc-delta.vercel.app/config.html",
+      "height": 400,
+      "width": 600
+    }
+  },
+  "arguments": {
+    "execute": {
+      "inArguments": [
+        {
+          "emailAddress": "{{Event.DEAudience-7f7c5f18-627f-9642-b5e2-9fc9482e59e3.Email}}"
+        },
+        {
+          "sourceType": "{{Event.Config.sourceType}}"
+        },
+        {
+          "checkEmail": "{{Event.Config.checkEmail}}"
+        },
+        {
+          "checkDomain": "{{Event.Config.checkDomain}}"
+        },
+        { 
+          "threshold":    "{{Event.Config.threshold}}" 
+        },
+        { 
+          "cacheTTL":     "{{Event.Config.cacheTTL}}" 
+        }
+      ],
+      "outArguments": [
+        { "branchResult": "" }
+      ],
+      "url": "https://custom-activity-sfmc-delta.vercel.app/api/execute",
+      "verb": "POST",
+      "format": "json",
+      "useJwt": false,
+      "timeout": 20000,
+      "retryCount": 0
+    }
+  },
+  "configurationArguments": {
+    "applicationExtensionKey": "17bb41aa-3661-47bf-a6f7-62946f159858",
+    "save": {
+      "url": "https://custom-activity-sfmc-delta.vercel.app/api/save",
+      "verb": "POST",
+      "useJwt": false
+    },
+    "publish": {
+      "url": "https://custom-activity-sfmc-delta.vercel.app/api/publish",
+      "verb": "POST",
+      "useJwt": false
+    },
+    "validate": {
+      "url": "https://custom-activity-sfmc-delta.vercel.app/api/validate",
+      "verb": "POST",
+      "useJwt": false
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "blockedEmails": [
+    "giuseppe.tosto@skylabs.it",
+    "peppe_universum@live.it"
+  ],
+  "blockedDomains": [
+    "yahoo.it"
+  ]
+}
